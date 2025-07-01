@@ -1,3 +1,21 @@
 #!/bin/bash
+# Initialize the repo, add everything to stage
+git init -b main
+git add .
 
-echo "dummy makerepo"
+# Prompt the user for a commit message
+read -p "Enter commit message (default: first commit): " commitMessage
+
+# Check if the user provided a message, otherwise use the default
+if [ -z "$commitMessage" ]; then
+    commitMessage="first commit"
+fi
+
+# Commit
+git commit -m "$commitMessage"
+
+# Get the current directory name
+repo_name=$(basename "$PWD")
+
+# Create the GitHub repository, add it as remote, then push
+gh repo create "$repo_name" --private --source=. --remote=origin --push
