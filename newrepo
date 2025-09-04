@@ -3,18 +3,20 @@
 # Read the repo name passed as an argument
 repo_name=$1
 
-# Check if a repo name was provided
+# If a repo name was not provided as an argument
 if [ "$repo_name" == "" ]; then
-  echo "Please provide a repository name."
-  exit 1
+  # Ask for user input until they provide a non-empty name
+  while [ "$repo_name" == "" ]; do
+    read -p "Enter repository name: " repo_name
+  done
 fi
 
 # Create a directory with the given repo name
-mkdir "/Users/cansin/Scripts/$repo_name" || { echo "Failed to create directory '$repo_name'. It may already exist."; exit 1; }
+mkdir "/Users/cansin/Code/$repo_name" || { echo "Failed to create directory '$repo_name'. It may already exist."; exit 1; }
 
 
 # Change into the new directory
-cd "/Users/cansin/Scripts/$repo_name" || { echo "Failed to change directory to '$repo_name'"; exit 1; }
+cd "/Users/cansin/Code/$repo_name" || { echo "Failed to change directory to '$repo_name'"; exit 1; }
 
 # Initialize an empty git repository
 git init -b main
